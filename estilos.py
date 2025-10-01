@@ -1,11 +1,12 @@
 
 # Colores ANSI para la terminal
-COLOR_HEADER = "#00ff00"
-COLOR_GREEN = "#2bff00"
-COLOR_BLUE = "#0400ee"
-COLOR_CYAN = "#00fff2"
-COLOR_GRAY = "#9B9B9B"
-COLOR_WHITE = "#FFFFFF"
+COLOR_RESET = "\033[0m"
+COLOR_GREEN = "\033[92m"
+COLOR_WHITE = "\033[97m"
+COLOR_CYAN = "\033[96m"
+COLOR_BLUE = "\033[94m"
+COLOR_GRAY = "\033[90m"
+COLOR_BOLD = "\033[1m"
 
 def imprimir_titulo(texto, color):
     ancho = 60
@@ -19,11 +20,11 @@ def mostrar_menu_principal():
     print("║" + "SISTEMA DE GESTIÓN".center(58) + "║")
     print("╠" + "═" * 58 + "╣")
     print("║                                                          ║")
-    print(f"║  {COLOR_WHITE}1{COLOR_GREEN} → Alta de producto                                  ║")
-    print(f"║  {COLOR_WHITE}2{COLOR_GREEN} → Listado de productos                              ║")
-    print(f"║  {COLOR_WHITE}3{COLOR_GREEN} → Alta de proveedores                               ║")
-    print(f"║  {COLOR_WHITE}4{COLOR_GREEN} → Listado de proveedores                            ║")
-    print(f"║  {COLOR_WHITE}5{COLOR_GREEN} → Salir                                             ║")
+    print(f"║  {COLOR_WHITE}1{COLOR_GREEN} → Alta de producto                                    ║")
+    print(f"║  {COLOR_WHITE}2{COLOR_GREEN} → Listado de productos                                ║")
+    print(f"║  {COLOR_WHITE}3{COLOR_GREEN} → Alta de proveedores                                 ║")
+    print(f"║  {COLOR_WHITE}4{COLOR_GREEN} → Listado de proveedores                              ║")
+    print(f"║  {COLOR_WHITE}5{COLOR_GREEN} → Salir                                               ║")
     print("║                                                          ║")
     print("╚" + "═" * 58 + "╝")
     print(COLOR_WHITE)
