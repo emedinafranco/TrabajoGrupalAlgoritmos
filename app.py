@@ -5,26 +5,39 @@ proveedores = []
 
 def agregar_productos():
     estilos.imprimir_titulo("Registro de producto", estilos.COLOR_BLUE)
-    nombre_producto = input("Ingrese el nombre del producto: ")
-    precio_producto = input("Ingrese el precio del producto: ")
-    stock = input("Ingrese cuántos productos se agregan al stock: ")
-
-    if nombre_producto == "" or precio_producto == "" or stock == "":
-        print("Error, datos incompletos o inválidos, reintente.")
+    id_producto = int(input("Ingrese un número de identificación para el producto: "))
+    if verificar_productos(id_producto,productos):
+        print("El ID ya existe")
     else:
-        precio_producto = float(precio_producto)
-        stock = int(stock)
 
-        if precio_producto <= 0 or stock < 0:
-            print("Error. El precio debe ser mayor a 0 y no puede haber stock negativo.")
+        nombre_producto = input("Ingrese el nombre del producto: ")
+        precio_producto = input("Ingrese el precio del producto: ")
+        stock = input("Ingrese cuántos productos se agregan al stock: ")
+
+        if nombre_producto == "" or precio_producto == "" or stock == "":
+            print("Error, datos incompletos o inválidos, reintente.")
         else:
-            datos_producto = {
-                "Nombre": nombre_producto,
-                "Precio": precio_producto,
-                "Stock": stock
-            }
-            productos.append(datos_producto)
-            print("El producto fue agregado con éxito.")
+            precio_producto = float(precio_producto)
+            stock = int(stock)
+
+            if precio_producto <= 0 or stock < 0:
+                print("Error. El precio debe ser mayor a 0 y no puede haber stock negativo.")
+            else:
+                datos_producto = {
+                    "ID Producto": id_producto,
+                    "Nombre": nombre_producto,
+                    "Precio": precio_producto,
+                    "Stock": stock
+                }
+                productos.append(datos_producto)
+                print("El producto fue agregado con éxito.")
+
+
+def verificar_productos(id_productos,productos):
+    for id in productos:
+        if id["ID Producto"] == id_productos:
+            return True
+    return False
 
 def listado_de_productos():
     estilos.imprimir_titulo("Lista de productos", estilos.COLOR_BLUE)
@@ -33,25 +46,36 @@ def listado_de_productos():
     else:
         i = 1
         for p in productos:
-            print(i, ". - Nombre:", p["Nombre"], "- Precio:", p["Precio"], "- Stock:", p["Stock"])
+            print(i, "- ID:", p["ID Producto"], " - Nombre:", p["Nombre"], "- Precio:", p["Precio"], "- Stock:", p["Stock"])
             i += 1
 
 def registro_de_proveedores():
     estilos.imprimir_titulo("-- Registro de proveedores --", estilos.COLOR_BLUE)
-    nombre_proveedor = input("Ingrese el nombre del proveedor: ")
-    telefono_proveedor = input("Ingrese número de teléfono: ")
-    correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
-
-    if nombre_proveedor == "" or telefono_proveedor == "" or correo_electronico_proveedor == "":
-        print("Datos incompletos, reingrese.")
+    id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
+    if verificar_proveedores(id_proveedor,proveedores):
+        print("El ID ya existe")
     else:
-        datos_proveedor = {
-            "Nombre": nombre_proveedor,
-            "Teléfono": telefono_proveedor,
-            "Correo electrónico": correo_electronico_proveedor
-        }
-        proveedores.append(datos_proveedor)
-        print("Proveedor registrado exitosamente.")
+        nombre_proveedor = input("Ingrese el nombre del proveedor: ")
+        telefono_proveedor = input("Ingrese número de teléfono: ")
+        correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
+
+        if nombre_proveedor == "" or telefono_proveedor == "" or correo_electronico_proveedor == "":
+            print("Datos incompletos, reingrese.")
+        else:
+            datos_proveedor = {
+                "ID Proveedor": id_proveedor,
+                "Nombre": nombre_proveedor,
+                "Teléfono": telefono_proveedor,
+                "Correo electrónico": correo_electronico_proveedor
+            }
+            proveedores.append(datos_proveedor)
+            print("Proveedor registrado exitosamente.")
+
+def verificar_proveedores(id_proveedor,proveedores):
+    for id in proveedores:
+        if id["ID Proveedor"] == id_proveedor:
+            return True
+    return False
 
 def listado_de_proveedores():
     estilos.imprimir_titulo("-- Lista de proveedores --", estilos.COLOR_BLUE)
