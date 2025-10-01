@@ -1,8 +1,10 @@
+import estilos
+
 productos = []
 proveedores = []
 
 def agregar_productos():
-    print("-- Registro de producto --")
+    estilos.imprimir_titulo("Registro de producto", estilos.COLOR_BLUE)
     nombre_producto = input("Ingrese el nombre del producto: ")
     precio_producto = input("Ingrese el precio del producto: ")
     stock = input("Ingrese cuántos productos se agregan al stock: ")
@@ -25,7 +27,7 @@ def agregar_productos():
             print("El producto fue agregado con éxito.")
 
 def listado_de_productos():
-    print("-- Lista de productos --")
+    estilos.imprimir_titulo("Lista de productos", estilos.COLOR_BLUE)
     if len(productos) == 0:
         print("No hay productos ingresados")
     else:
@@ -35,7 +37,7 @@ def listado_de_productos():
             i += 1
 
 def registro_de_proveedores():
-    print("-- Registro de proveedores --")
+    estilos.imprimir_titulo("-- Registro de proveedores --", estilos.COLOR_BLUE)
     nombre_proveedor = input("Ingrese el nombre del proveedor: ")
     telefono_proveedor = input("Ingrese número de teléfono: ")
     correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
@@ -52,7 +54,7 @@ def registro_de_proveedores():
         print("Proveedor registrado exitosamente.")
 
 def listado_de_proveedores():
-    print("-- Lista de proveedores --")
+    estilos.imprimir_titulo("-- Lista de proveedores --", estilos.COLOR_BLUE)
     if len(proveedores) == 0:
         print("No hay proveedores registrados")
     else:
@@ -63,12 +65,8 @@ def listado_de_proveedores():
 
 def menu():
     while True:
-        print("\n--- Sistema de gestión ---")
-        print("1- Alta de producto")
-        print("2- Listado de productos")
-        print("3- Alta de proveedores")
-        print("4- Listado de proveedores")
-        print("5- Salir")
+       
+        estilos.mostrar_menu_principal()
 
         opcion = input("Ingrese una opción: ")
 
