@@ -39,6 +39,49 @@ def verificar_productos(id_productos,productos):
             return True
     return False
 
+def modificar_producto():
+    global productos
+    id_productos = int(input("Ingrese el ID del producto a modificar: "))
+    encontrado = False
+
+    for producto in productos:
+        if producto["ID Producto"] == id_productos:
+            encontrado = True
+            print("Producto encontrado")
+            print(f"Nombre: {producto['Nombre']}")
+            print(f"Precio: {producto['Precio']}")
+            print(f"Stock: {producto['Stock']}")
+
+            print("\n¿Qué desea modificar?")
+
+            print("1. Precio")
+            print("2. Stock")
+
+            opcion = int(input("Ingrese opción: "))
+            
+            if opcion == 1:
+                nuevo_precio = float(input("Ingrese el precio nuevo: "))
+                producto["Precio"] = nuevo_precio
+                print("Precio Actulizado")
+            
+            elif opcion == 2:
+                nuevo_stock = int(input("Ingrese el nuevo stock: "))
+                producto["Stock"] = nuevo_stock
+                print("Stock Actualizado")
+            else:
+                print("Opción incorrecta")
+                opcion = int(input("Ingrese opción: "))
+            break
+    
+    
+    
+    if not encontrado:
+        print("No se encontró el producto deseado")
+            
+
+
+
+
 def listado_de_productos():
     estilos.imprimir_titulo("Lista de productos", estilos.COLOR_BLUE)
     if len(productos) == 0:
@@ -89,7 +132,7 @@ def listado_de_proveedores():
 
 def menu():
     while True:
-       
+        
         estilos.mostrar_menu_principal()
 
         opcion = input("Ingrese una opción: ")
@@ -103,6 +146,8 @@ def menu():
         elif opcion == "4":
             listado_de_proveedores()
         elif opcion == "5":
+            modificar_producto()
+        elif opcion == "6":
             print("Saliendo del sistema...")
             break
         else:
