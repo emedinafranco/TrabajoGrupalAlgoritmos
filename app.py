@@ -6,7 +6,13 @@ proveedores = []
 
 def agregar_productos():
     estilos.imprimir_titulo("Registro de producto", estilos.COLOR_BLUE)
+    patron_id = "^[0-9]{4}$"
     id_producto = int(input("Ingrese un número de identificación para el producto: "))
+    while not re.match(patron_id,str(id_producto)):
+        print("El ID debe tener 4 dígitos")
+        id_producto = int(input("Ingrese un número de identificación para el producto: "))
+    
+    print("ID correcto")
     if verificar_productos(id_producto,productos):
         print("El ID ya existe")
     else:
@@ -95,7 +101,13 @@ def listado_de_productos():
 def registro_de_proveedores():
     
     estilos.imprimir_titulo("-- Registro de proveedores --", estilos.COLOR_BLUE)
+    patron_id_proveedor = "^[0-9]{4}$"
     id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
+    while not re.match(patron_id_proveedor,str(id_proveedor)):
+        print("El ID debe tener 4 dígitos")
+        id_proveedor = int(input("Ingrese un número de identificación para el producto: "))
+    
+    print("ID correcto")
     if verificar_proveedores(id_proveedor,proveedores):
         print("El ID ya existe")
     else:
