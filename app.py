@@ -100,10 +100,15 @@ def registro_de_proveedores():
         print("El ID ya existe")
     else:
         nombre_proveedor = input("Ingrese el nombre del proveedor: ")
+        patron_telefono = "^[0-9]{8}$"
         telefono_proveedor = input("Ingrese número de teléfono: ")
-        patron = ".*@.*"
+        while not re.match(patron_telefono,telefono_proveedor):
+            print("El telefono debe tener 8 dígitos")
+            telefono_proveedor = input("Ingrese número de teléfono: ")
+        print("Telefóno correcto")
+        patron_mail = ".*@.*"
         correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
-        while not re.match(patron,correo_electronico_proveedor):
+        while not re.match(patron_mail,correo_electronico_proveedor):
             print("Mail Incorrecto, debe tener mínimo un @")
             correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
         
