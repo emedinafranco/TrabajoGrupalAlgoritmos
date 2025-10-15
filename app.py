@@ -1,4 +1,5 @@
 import estilos
+import re
 
 productos = []
 proveedores = []
@@ -40,7 +41,6 @@ def verificar_productos(id_productos,productos):
     return False
 
 def modificar_producto():
-    global productos
     id_productos = int(input("Ingrese el ID del producto a modificar: "))
     encontrado = False
 
@@ -93,6 +93,7 @@ def listado_de_productos():
             i += 1
 
 def registro_de_proveedores():
+    
     estilos.imprimir_titulo("-- Registro de proveedores --", estilos.COLOR_BLUE)
     id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
     if verificar_proveedores(id_proveedor,proveedores):
@@ -100,7 +101,13 @@ def registro_de_proveedores():
     else:
         nombre_proveedor = input("Ingrese el nombre del proveedor: ")
         telefono_proveedor = input("Ingrese número de teléfono: ")
+        patron = ".*@.*"
         correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
+        while not re.match(patron,correo_electronico_proveedor):
+            print("Mail Incorrecto, debe tener mínimo un @")
+            correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
+        
+        print("Mail correcto")
 
         if nombre_proveedor == "" or telefono_proveedor == "" or correo_electronico_proveedor == "":
             print("Datos incompletos, reingrese.")
