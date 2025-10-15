@@ -143,33 +143,38 @@ def listado_de_proveedores():
 
 def menu():
     while True:
-        
         estilos.mostrar_menu_principal()
-
         opcion = input("Ingrese una opción: ")
-
-        if opcion == "1":
-            agregar_productos()
-        elif opcion == "2":
-            listado_de_productos()
-        elif opcion == "3":
-            registro_de_proveedores()
-        elif opcion == "4":
-            listado_de_proveedores()
-        elif opcion == "5":
-            modificar_producto()
-        elif opcion == "6":
-            if len(productos) == 0:
-                print("No hay productos ingresados.")
+        try:
+            opcion = int(opcion)
+            
+            if opcion == 1:
+                agregar_productos()
+            elif opcion == 2:
+                listado_de_productos()
+            elif opcion == 3:
+                registro_de_proveedores()
+            elif opcion == 4:
+                listado_de_proveedores()
+            elif opcion == 5:
+                modificar_producto()
+            elif opcion == 6:
+                if len(productos) == 0:
+                    print("No hay productos ingresados.")
+                else:
+                    precios_iva = lista_precios_con_iva(productos)
+                    for nombre, precio in precios_iva:
+                        print(f"{nombre} - Precio con IVA: ${precio}")
+            elif opcion == 0:
+                    print("Saliendo del sistema...")
+                    break 
             else:
-                precios_iva = lista_precios_con_iva(productos)
-                for nombre, precio in precios_iva:
-                    print(f"{nombre} - Precio con IVA: ${precio}")
-        elif opcion == "0":
-                print("Saliendo del sistema...")
-                break 
-        else:
-            print("Opción inválida, intente nuevamente.")
+                print("Opcion invalida, intente nuevamente...")
+        except ValueError:
+            print("Error... Ingrese una opcion numerica")
+            
+            
+
 
 # Ejecutar el menú
 menu()
