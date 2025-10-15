@@ -92,6 +92,10 @@ def listado_de_productos():
             print(i, "- ID:", p["ID Producto"], " - Nombre:", p["Nombre"], "- Precio:", p["Precio"], "- Stock:", p["Stock"])
             i += 1
 
+def lista_precios_con_iva(productos):
+    estilos.imprimir_titulo("Listado de precios con IVA", estilos.COLOR_BLUE)
+    return list(map(lambda p: (p["Nombre"], p["Precio"] * 1.21), productos))
+
 def registro_de_proveedores():
     estilos.imprimir_titulo("-- Registro de proveedores --", estilos.COLOR_BLUE)
     id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
@@ -148,8 +152,15 @@ def menu():
         elif opcion == "5":
             modificar_producto()
         elif opcion == "6":
-            print("Saliendo del sistema...")
-            break
+            if len(productos) == 0:
+                print("No hay productos ingresados.")
+            else:
+                precios_iva = lista_precios_con_iva(productos)
+                for nombre, precio in precios_iva:
+                    print(f"{nombre} - Precio con IVA: ${precio}")
+        elif opcion == "0":
+                print("Saliendo del sistema...")
+                break 
         else:
             print("Opción inválida, intente nuevamente.")
 
