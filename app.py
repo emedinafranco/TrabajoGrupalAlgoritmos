@@ -168,20 +168,21 @@ def menu():
                     for nombre, precio in precios_iva:
                         print(f"{nombre} - Precio con IVA: ${precio}")
             elif opcion == "7":
-            if len (proveedores)== 0:
-                print("No se ingresaron proveedores.")
-            else:    
-               nombre = input("Ingrese el nombre del proveedor a buscar: ")
-               busqueda_proveedor = buscar_proveedor(nombre)
-               if busqueda_proveedor:
-                   for p in busqueda_proveedor:
-                       print(f"Proveedor: {p['Nombre']} - Teléfono: {p['Teléfono']} - Correo: {p['Correo electrónico']}")
-               else:
-                  print("No se encontró ningún proveedor con ese nombre.")  
-            
-        elif opcion == 0:
-                    print("Saliendo del sistema...")
-                    break 
+                if len (proveedores)== 0:
+                    print("No se ingresaron proveedores.")
+                else:    
+                    nombre = input("Ingrese el nombre del proveedor a buscar: ")
+                    busqueda_proveedor = buscar_proveedor(nombre)
+                    
+                if busqueda_proveedor:
+                    for p in busqueda_proveedor:
+                        print(f"Proveedor: {p['Nombre']} - Teléfono: {p['Teléfono']} - Correo: {p['Correo electrónico']}")
+                else:
+                    print("No se encontró ningún proveedor con ese nombre.")  
+                
+            elif opcion == 0:
+                        print("Saliendo del sistema...")
+                        break 
             else:
                 print("Opcion invalida, intente nuevamente...")
         except ValueError:
