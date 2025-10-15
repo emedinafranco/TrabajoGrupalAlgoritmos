@@ -140,6 +140,8 @@ def listado_de_proveedores():
         for p in proveedores:
             print(i, ". - Nombre:", p["Nombre"], "- Teléfono:", p["Teléfono"], "- Correo:", p["Correo electrónico"])
             i += 1
+def buscar_proveedor(nombre):
+    return list(filter(lambda p: p["Nombre"].lower() == nombre.lower(), proveedores))
 
 def menu():
     while True:
@@ -165,7 +167,19 @@ def menu():
                     precios_iva = lista_precios_con_iva(productos)
                     for nombre, precio in precios_iva:
                         print(f"{nombre} - Precio con IVA: ${precio}")
-            elif opcion == 0:
+            elif opcion == "7":
+            if len (proveedores)== 0:
+                print("No se ingresaron proveedores.")
+            else:    
+               nombre = input("Ingrese el nombre del proveedor a buscar: ")
+               busqueda_proveedor = buscar_proveedor(nombre)
+               if busqueda_proveedor:
+                   for p in busqueda_proveedor:
+                       print(f"Proveedor: {p['Nombre']} - Teléfono: {p['Teléfono']} - Correo: {p['Correo electrónico']}")
+               else:
+                  print("No se encontró ningún proveedor con ese nombre.")  
+            
+        elif opcion == 0:
                     print("Saliendo del sistema...")
                     break 
             else:
