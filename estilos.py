@@ -11,6 +11,25 @@ COLOR_CYAN = "\033[96m"
 COLOR_BLUE = "\033[94m"
 COLOR_GRAY = "\033[90m"
 COLOR_BOLD = "\033[1m"
+COLOR_RED = "\033[91m"
+COLOR_YELLOW = "\033[93m"
+
+def notification(type, messagge):
+    icon = {
+        "ok": "✅",
+        "error": "❌",
+        "info": "ℹ️",
+        "warn": "⚠️"
+    }
+    
+    color = {
+        "ok": COLOR_GREEN,
+        "error": COLOR_RED,
+        "info": COLOR_CYAN,
+        "warn": COLOR_YELLOW,
+    }
+    
+    print(f"{color[type]}{icon[type]}  {messagge}{COLOR_RESET}\n")
 
 def imprimir_titulo(texto, color):
     """Imprime un título centrado en la terminal usando el color indicado.

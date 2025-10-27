@@ -9,12 +9,12 @@ def agregar_productos():
     patron_id = "^[0-9]{4}$"
     id_producto = int(input("Ingrese un número de identificación para el producto: "))
     while not re.match(patron_id,str(id_producto)):
-        print("El ID debe tener 4 dígitos")
+        estilos.notification("warn","El ID debe tener 4 dígitos")
         id_producto = int(input("Ingrese un número de identificación para el producto: "))
     
-    print("ID correcto")
+    estilos.notification("ok","ID correcto")
     if verificar_productos(id_producto,productos):
-        print("El ID ya existe")
+        estilos.notification("error","El ID ya existe")
     else:
 
         nombre_producto = input("Ingrese el nombre del producto: ")
@@ -22,13 +22,13 @@ def agregar_productos():
         stock = input("Ingrese cuántos productos se agregan al stock: ")
 
         if nombre_producto == "" or precio_producto == "" or stock == "":
-            print("Error, datos incompletos o inválidos, reintente.")
+            estilos.notification("error","Error, datos incompletos o inválidos, reintente.")
         else:
             precio_producto = float(precio_producto)
             stock = int(stock)
 
             if precio_producto <= 0 or stock < 0:
-                print("Error. El precio debe ser mayor a 0 y no puede haber stock negativo.")
+                estilos.notification("error","Error. El precio debe ser mayor a 0 y no puede haber stock negativo.")
             else:
                 datos_producto = {
                     "ID Producto": id_producto,
@@ -37,7 +37,7 @@ def agregar_productos():
                     "Stock": stock
                 }
                 productos.append(datos_producto)
-                print("El producto fue agregado con éxito.")
+                estilos.notification("ok","El producto fue agregado con éxito.")
 
 
 def verificar_productos(id_productos,productos):
@@ -53,7 +53,7 @@ def modificar_producto():
     for producto in productos:
         if producto["ID Producto"] == id_productos:
             encontrado = True
-            print("Producto encontrado")
+            estilos.notification("info","Producto encontrado")
             print(f"Nombre: {producto['Nombre']}")
             print(f"Precio: {producto['Precio']}")
             print(f"Stock: {producto['Stock']}")
@@ -68,30 +68,24 @@ def modificar_producto():
             if opcion == 1:
                 nuevo_precio = float(input("Ingrese el precio nuevo: "))
                 producto["Precio"] = nuevo_precio
-                print("Precio Actulizado")
+                estilos.notification("ok","Precio Actualizado")
             
             elif opcion == 2:
                 nuevo_stock = int(input("Ingrese el nuevo stock: "))
                 producto["Stock"] = nuevo_stock
-                print("Stock Actualizado")
+                estilos.notification("ok","Stock Actualizado")
             else:
-                print("Opción incorrecta")
+                estilos.notification("error","Opción incorrecta")
                 opcion = int(input("Ingrese opción: "))
             break
     
-    
-    
     if not encontrado:
-        print("No se encontró el producto deseado")
-            
-
-
-
+        estilos.notification("warn","No se encontró el producto deseado")
 
 def listado_de_productos():
     estilos.imprimir_titulo("Lista de productos", estilos.COLOR_BLUE)
     if len(productos) == 0:
-        print("No hay productos ingresados")
+        estilos.notification("warn","No hay productos ingresados")
     else:
         i = 1
         for p in productos:
@@ -108,30 +102,30 @@ def registro_de_proveedores():
     patron_id_proveedor = "^[0-9]{4}$"
     id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
     while not re.match(patron_id_proveedor,str(id_proveedor)):
-        print("El ID debe tener 4 dígitos")
+        estilos.notification("warn","El ID debe tener 4 dígitos")
         id_proveedor = int(input("Ingrese un número de identificación para el producto: "))
     
-    print("ID correcto")
+    estilos.notification("ok","ID correcto")
     if verificar_proveedores(id_proveedor,proveedores):
-        print("El ID ya existe")
+        estilos.notification("error","El ID ya existe")
     else:
         nombre_proveedor = input("Ingrese el nombre del proveedor: ")
         patron_telefono = "^[0-9]{8}$"
         telefono_proveedor = input("Ingrese número de teléfono: ")
         while not re.match(patron_telefono,telefono_proveedor):
-            print("El telefono debe tener 8 dígitos")
+            estilos.notification("warn","El teléfono debe tener 8 dígitos")
             telefono_proveedor = input("Ingrese número de teléfono: ")
-        print("Telefóno correcto")
+        estilos.notification("ok","Teléfono correcto")
         patron_mail = ".*@.*"
         correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
         while not re.match(patron_mail,correo_electronico_proveedor):
-            print("Mail Incorrecto, debe tener mínimo un @")
+            estilos.notification("error","Mail Incorrecto, debe tener mínimo un @")
             correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
         
-        print("Mail correcto")
+        estilos.notification("ok","Mail correcto")
 
         if nombre_proveedor == "" or telefono_proveedor == "" or correo_electronico_proveedor == "":
-            print("Datos incompletos, reingrese.")
+            estilos.notification("error","Datos incompletos, reingrese.")
         else:
             datos_proveedor = {
                 "ID Proveedor": id_proveedor,
@@ -140,7 +134,7 @@ def registro_de_proveedores():
                 "Correo electrónico": correo_electronico_proveedor
             }
             proveedores.append(datos_proveedor)
-            print("Proveedor registrado exitosamente.")
+            estilos.notification("ok","Proveedor registrado exitosamente.")
 
 def verificar_proveedores(id_proveedor,proveedores):
     for id in proveedores:
@@ -151,12 +145,13 @@ def verificar_proveedores(id_proveedor,proveedores):
 def listado_de_proveedores():
     estilos.imprimir_titulo("-- Lista de proveedores --", estilos.COLOR_BLUE)
     if len(proveedores) == 0:
-        print("No hay proveedores registrados")
+        estilos.notification("warn","No hay proveedores registrados")
     else:
         i = 1
         for p in proveedores:
             print(i, ". - Nombre:", p["Nombre"], "- Teléfono:", p["Teléfono"], "- Correo:", p["Correo electrónico"])
             i += 1
+
 def buscar_proveedor(nombre):
     return list(filter(lambda p: p["Nombre"].lower() == nombre.lower(), proveedores))
 
@@ -179,34 +174,31 @@ def menu():
                 modificar_producto()
             elif opcion == 6:
                 if len(productos) == 0:
-                    print("No hay productos ingresados.")
+                    estilos.notification("error","No hay productos ingresados.")
                 else:
                     precios_iva = lista_precios_con_iva(productos)
                     for nombre, precio in precios_iva:
                         print(f"{nombre} - Precio con IVA: ${precio}")
-            elif opcion == "7":
-                if len (proveedores)== 0:
-                    print("No se ingresaron proveedores.")
+            elif opcion == 7:
+                if len(proveedores) == 0:
+                    estilos.notification("warn","No se ingresaron proveedores.")
                 else:    
                     nombre = input("Ingrese el nombre del proveedor a buscar: ")
                     busqueda_proveedor = buscar_proveedor(nombre)
                     
-                if busqueda_proveedor:
-                    for p in busqueda_proveedor:
-                        print(f"Proveedor: {p['Nombre']} - Teléfono: {p['Teléfono']} - Correo: {p['Correo electrónico']}")
-                else:
-                    print("No se encontró ningún proveedor con ese nombre.")  
+                    if busqueda_proveedor:
+                        for p in busqueda_proveedor:
+                            print(f"Proveedor: {p['Nombre']} - Teléfono: {p['Teléfono']} - Correo: {p['Correo electrónico']}")
+                    else:
+                        estilos.notification("warn","No se encontró ningún proveedor con ese nombre.")  
                 
             elif opcion == 0:
-                        print("Saliendo del sistema...")
-                        break 
+                estilos.notification("info","Saliendo del sistema...")
+                break 
             else:
-                print("Opcion invalida, intente nuevamente...")
+                estilos.notification("error","Opción inválida, intente nuevamente...")
         except ValueError:
-            print("Error... Ingrese una opcion numerica")
-            
-            
-
+            estilos.notification("error","Error... Ingrese una opción numérica")
 
 # Ejecutar el menú
 menu()
