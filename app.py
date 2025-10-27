@@ -1,5 +1,7 @@
 import estilos
 import re
+import os
+
 
 productos = []
 proveedores = []
@@ -155,6 +157,12 @@ def listado_de_proveedores():
 def buscar_proveedor(nombre):
     return list(filter(lambda p: p["Nombre"].lower() == nombre.lower(), proveedores))
 
+def limpiar_pantalla():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+def esperar_enter():
+    input("\nPresione Enter para continuar...")
+
 def menu():
     while True:
         estilos.mostrar_menu_principal()
@@ -199,6 +207,9 @@ def menu():
                 estilos.notification("error","Opción inválida, intente nuevamente...")
         except ValueError:
             estilos.notification("error","Error... Ingrese una opción numérica")
+            
+        esperar_enter()
+        limpiar_pantalla()
 
 # Ejecutar el menú
 menu()
