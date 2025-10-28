@@ -170,7 +170,20 @@ def estadisticas_stock():
     print("Precio promedio: $", (promedio))
     print("Producto mas caro:", nombre_caro, "($", max_precio, ")")
     print("Producto mas barato:", nombre_barato, "($", min_precio, ")")
+def filtrar_stock_bajo():
+    if len(productos) == 0:
+        print("No hay productos cargados.")
+        
+    else:
+        print("Productos con stock bajo")
+        hay_bajos = False
+        for p in productos:
+            if p["Stock"] < 5:
+                print(p["Nombre"], "- Stock:", p["Stock"])
+                hay_bajos = True
 
+        if not hay_bajos:
+            print("No hay productos con stock bajo.")
 def menu():
     while True:
         
