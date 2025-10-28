@@ -1,4 +1,5 @@
 import estilos
+import re
 
 productos = []
 proveedores = []
@@ -40,7 +41,6 @@ def verificar_productos(id_productos,productos):
     return False
 
 def modificar_producto():
-    global productos
     id_productos = int(input("Ingrese el ID del producto a modificar: "))
     encontrado = False
 
@@ -97,6 +97,7 @@ def lista_precios_con_iva(productos):
     return list(map(lambda p: (p["Nombre"], p["Precio"] * 1.21), productos))
 
 def registro_de_proveedores():
+    
     estilos.imprimir_titulo("-- Registro de proveedores --", estilos.COLOR_BLUE)
     id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
     if verificar_proveedores(id_proveedor,proveedores):
@@ -104,7 +105,13 @@ def registro_de_proveedores():
     else:
         nombre_proveedor = input("Ingrese el nombre del proveedor: ")
         telefono_proveedor = input("Ingrese número de teléfono: ")
+        patron = ".*@.*"
         correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
+        while not re.match(patron,correo_electronico_proveedor):
+            print("Mail Incorrecto, debe tener mínimo un @")
+            correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
+        
+        print("Mail correcto")
 
         if nombre_proveedor == "" or telefono_proveedor == "" or correo_electronico_proveedor == "":
             print("Datos incompletos, reingrese.")
@@ -135,6 +142,34 @@ def listado_de_proveedores():
             i += 1
 def buscar_proveedor(nombre):
     return list(filter(lambda p: p["Nombre"].lower() == nombre.lower(), proveedores))
+def estadisticas_stock():
+    if len (productos)== 0:
+        print("No se ingresaron productos")
+    else:
+        total = 0
+        max_precio = 0
+        min_precio = float("inf")
+        nombre_caro = ""
+        nombre_barato = ""
+
+        for p in productos:
+            total += p["Precio"] * p["Stock"]
+
+            if p["Precio"] > max_precio:
+                max_precio = p["Precio"]
+                nombre_caro = p["Nombre"]
+
+            if p["Precio"] < min_precio:
+                min_precio = p["Precio"]
+                nombre_barato = p["Nombre"]
+
+        promedio = total / len(productos)
+
+    print("Estadisticas del stock")
+    print("Valor total del stock: $", total)
+    print("Precio promedio: $", (promedio))
+    print("Producto mas caro:", nombre_caro, "($", max_precio, ")")
+    print("Producto mas barato:", nombre_barato, "($", min_precio, ")")
 
 def menu():
     while True:
@@ -171,7 +206,8 @@ def menu():
                        print(f"Proveedor: {p['Nombre']} - Teléfono: {p['Teléfono']} - Correo: {p['Correo electrónico']}")
                else:
                   print("No se encontró ningún proveedor con ese nombre.")  
-            
+        elif opcion == "8":
+            estadisticas_stock()    
         elif opcion == "0":
                 print("Saliendo del sistema...")
                 break 
