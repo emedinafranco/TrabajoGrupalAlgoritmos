@@ -1,7 +1,5 @@
 import estilos
 import re
-import os
-
 
 productos = []
 proveedores = []
@@ -114,17 +112,13 @@ def registro_de_proveedores():
         nombre_proveedor = input("Ingrese el nombre del proveedor: ")
         patron_telefono = "^[0-9]{8}$"
         telefono_proveedor = input("Ingrese número de teléfono: ")
-        while not re.match(patron_telefono,telefono_proveedor):
-            estilos.notification("warn","El teléfono debe tener 8 dígitos")
-            telefono_proveedor = input("Ingrese número de teléfono: ")
-        estilos.notification("ok","Teléfono correcto")
-        patron_mail = ".*@.*"
+        patron = ".*@.*"
         correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
-        while not re.match(patron_mail,correo_electronico_proveedor):
-            estilos.notification("error","Mail Incorrecto, debe tener mínimo un @")
+        while not re.match(patron,correo_electronico_proveedor):
+            print("Mail Incorrecto, debe tener mínimo un @")
             correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
         
-        estilos.notification("ok","Mail correcto")
+        print("Mail correcto")
 
         if nombre_proveedor == "" or telefono_proveedor == "" or correo_electronico_proveedor == "":
             estilos.notification("error","Datos incompletos, reingrese.")
@@ -156,52 +150,85 @@ def listado_de_proveedores():
 
 def buscar_proveedor(nombre):
     return list(filter(lambda p: p["Nombre"].lower() == nombre.lower(), proveedores))
+def estadisticas_stock():
+    if len (productos)== 0:
+        print("No se ingresaron productos")
+    else:
+        total = 0
+        max_precio = 0
+        min_precio = float("inf")
+        nombre_caro = ""
+        nombre_barato = ""
 
-def limpiar_pantalla():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    
-def esperar_enter():
-    input("\nPresione Enter para continuar...")
+        for p in productos:
+            total += p["Precio"] * p["Stock"]
 
+            if p["Precio"] > max_precio:
+                max_precio = p["Precio"]
+                nombre_caro = p["Nombre"]
+
+            if p["Precio"] < min_precio:
+                min_precio = p["Precio"]
+                nombre_barato = p["Nombre"]
+
+        promedio = total / len(productos)
+
+    print("Estadisticas del stock")
+    print("Valor total del stock: $", total)
+    print("Precio promedio: $", (promedio))
+    print("Producto mas caro:", nombre_caro, "($", max_precio, ")")
+    print("Producto mas barato:", nombre_barato, "($", min_precio, ")")
+def filtrar_stock_bajo():
+    if len(productos) == 0:
+        print("No hay productos cargados.")
+        
+    else:
+        print("Productos con stock bajo")
+        hay_bajos = False
+        for p in productos:
+            if p["Stock"] < 5:
+                print(p["Nombre"], "- Stock:", p["Stock"])
+                hay_bajos = True
+
+        if not hay_bajos:
+            print("No hay productos con stock bajo.")
 def menu():
     while True:
         estilos.mostrar_menu_principal()
         opcion = input("Ingrese una opción: ")
-        try:
-            opcion = int(opcion)
-            
-            if opcion == 1:
-                agregar_productos()
-            elif opcion == 2:
-                listado_de_productos()
-            elif opcion == 3:
-                registro_de_proveedores()
-            elif opcion == 4:
-                listado_de_proveedores()
-            elif opcion == 5:
-                modificar_producto()
-            elif opcion == 6:
-                if len(productos) == 0:
-                    estilos.notification("error","No hay productos ingresados.")
-                else:
-                    precios_iva = lista_precios_con_iva(productos)
-                    for nombre, precio in precios_iva:
-                        print(f"{nombre} - Precio con IVA: ${precio}")
-            elif opcion == 7:
-                if len(proveedores) == 0:
-                    estilos.notification("warn","No se ingresaron proveedores.")
-                else:    
-                    nombre = input("Ingrese el nombre del proveedor a buscar: ")
-                    busqueda_proveedor = buscar_proveedor(nombre)
-                    
-                    if busqueda_proveedor:
-                        for p in busqueda_proveedor:
-                            print(f"Proveedor: {p['Nombre']} - Teléfono: {p['Teléfono']} - Correo: {p['Correo electrónico']}")
-                    else:
-                        estilos.notification("warn","No se encontró ningún proveedor con ese nombre.")  
-                
-            elif opcion == 0:
-                estilos.notification("info","Saliendo del sistema...")
+
+        if opcion == "1":
+            agregar_productos()
+        elif opcion == "2":
+            listado_de_productos()
+        elif opcion == "3":
+            registro_de_proveedores()
+        elif opcion == "4":
+            listado_de_proveedores()
+        elif opcion == "5":
+            modificar_producto()
+        elif opcion == "6":
+            if len(productos) == 0:
+                print("No hay productos ingresados.")
+            else:
+                precios_iva = lista_precios_con_iva(productos)
+                for nombre, precio in precios_iva:
+                    print(f"{nombre} - Precio con IVA: ${precio}")
+        elif opcion == "7":
+            if len (proveedores)== 0:
+                print("No se ingresaron proveedores.")
+            else:    
+               nombre = input("Ingrese el nombre del proveedor a buscar: ")
+               busqueda_proveedor = buscar_proveedor(nombre)
+               if busqueda_proveedor:
+                   for p in busqueda_proveedor:
+                       print(f"Proveedor: {p['Nombre']} - Teléfono: {p['Teléfono']} - Correo: {p['Correo electrónico']}")
+               else:
+                  print("No se encontró ningún proveedor con ese nombre.")  
+        elif opcion == "8":
+            estadisticas_stock()    
+        elif opcion == "0":
+                print("Saliendo del sistema...")
                 break 
             else:
                 estilos.notification("error","Opción inválida, intente nuevamente...")
