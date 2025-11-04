@@ -251,7 +251,7 @@ def menu():
                 guardar_datos()
                 print("Saliendo del sistema...")
                 break 
-            else:
+        else:
                 estilos.notification("error","Opción inválida, intente nuevamente...")
         except ValueError:
             estilos.notification("error","Error... Ingrese una opción numérica")
