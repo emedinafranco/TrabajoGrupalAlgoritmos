@@ -2,9 +2,29 @@
 import estilos
 import re
 import os
+import json
 
 productos = []
 proveedores = []
+def guardar_datos():
+    with open ("productos.json", "w") as arch_prod:
+        json.dump(productos, arch_prod, indent=4)
+    with open ("proveedores.json", "w") as arch_prov:
+        json.dump(proveedores, arch_proov, indent=4)  
+
+def cargar_datos():
+    global productos, proveedores
+    try:
+        with open ("productos.json", "r") as arch_prod: 
+            productos=json.load(arch_prod)
+    except FileNotFoundError:
+        productos= []
+    try:
+        with open ("proveedores.json", "r") as arch_prov:
+            proveedores= json.load(arch_prov) 
+    except FileNotFoundError:
+        proveedores= []
+
 
 def agregar_productos():
     estilos.imprimir_titulo("Registro de producto", estilos.COLOR_BLUE)
@@ -234,6 +254,38 @@ def menu():
             elif opcion == 8:
                 estadisticas_stock()    
             elif opcion == 0:
+        if opcion == "1":
+            agregar_productos()
+        elif opcion == "2":
+            listado_de_productos()
+        elif opcion == "3":
+            registro_de_proveedores()
+        elif opcion == "4":
+            listado_de_proveedores()
+        elif opcion == "5":
+            modificar_producto()
+        elif opcion == "6":
+            if len(productos) == 0:
+                print("No hay productos ingresados.")
+            else:
+                precios_iva = lista_precios_con_iva(productos)
+                for nombre, precio in precios_iva:
+                    print(f"{nombre} - Precio con IVA: ${precio}")
+        elif opcion == "7":
+            if len (proveedores)== 0:
+                print("No se ingresaron proveedores.")
+            else:    
+               nombre = input("Ingrese el nombre del proveedor a buscar: ")
+               busqueda_proveedor = buscar_proveedor(nombre)
+               if busqueda_proveedor:
+                   for p in busqueda_proveedor:
+                       print(f"Proveedor: {p['Nombre']} - Teléfono: {p['Teléfono']} - Correo: {p['Correo electrónico']}")
+               else:
+                  print("No se encontró ningún proveedor con ese nombre.")  
+        elif opcion == "8":
+            estadisticas_stock()    
+        elif opcion == "0":
+                guardar_datos()
                 print("Saliendo del sistema...")
                 break 
             else:
@@ -244,4 +296,6 @@ def menu():
         esperar_enter()
         limpiar_pantalla()
 # Ejecutar el menú
+menu()
+cargar_datos()
 menu()
