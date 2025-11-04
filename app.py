@@ -1,8 +1,28 @@
 import estilos
 import re
+import json
 
 productos = []
 proveedores = []
+def guardar_datos():
+    with open ("productos.json", "w") as arch_prod:
+        json.dump(productos, arch_prod, indent=4)
+    with open ("proveedores.json", "w") as arch_prov:
+        json.dump(proveedores, arch_proov, indent=4)  
+
+def cargar_datos():
+    global productos, proveedores
+    try:
+        with open ("productos.json", "r") as arch_prod: 
+            productos=json.load(arch_prod)
+    except FileNotFoundError:
+        productos= []
+    try:
+        with open ("proveedores.json", "r") as arch_prov:
+            proveedores= json.load(arch_prov) 
+    except FileNotFoundError:
+        proveedores= []
+
 
 def agregar_productos():
     estilos.imprimir_titulo("Registro de producto", estilos.COLOR_BLUE)
@@ -228,6 +248,7 @@ def menu():
         elif opcion == "8":
             estadisticas_stock()    
         elif opcion == "0":
+                guardar_datos()
                 print("Saliendo del sistema...")
                 break 
             else:
@@ -239,4 +260,5 @@ def menu():
         limpiar_pantalla()
 
 # Ejecutar el menú
+cargar_datos()
 menu()
