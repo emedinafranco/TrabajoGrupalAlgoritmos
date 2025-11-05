@@ -5,22 +5,41 @@ import os
 productos = []
 proveedores = []
 
+"""Definición de patrones de validación usando expresiones regulares."""
+patron_string = "^[A-Za-z\s]+$"
+patron_positivos = "^[1-9]+(\.[1-9]+)?$"
+patron_id = "^[0-9]{4}$"
+patron_telefono = "^[0-9]{8}$"
+patron_correo = ".*@.*"
+
 def agregar_productos():
     estilos.imprimir_titulo("Registro de producto", estilos.COLOR_BLUE)
-    patron_id = "^[0-9]{4}$"
     id_producto = int(input("Ingrese un número de identificación para el producto: "))
     while not re.match(patron_id,str(id_producto)):
         estilos.notification("warn","El ID debe tener 4 dígitos")
         id_producto = int(input("Ingrese un número de identificación para el producto: "))
-    
     estilos.notification("ok","ID correcto")
+    
     if verificar_productos(id_producto,productos):
         estilos.notification("error","El ID ya existe")
     else:
-
         nombre_producto = input("Ingrese el nombre del producto: ")
+        while not re.match(patron_string,nombre_producto):
+            estilos.notification("warn","Nombre incorrecto, solo letras y espacios permitidos\n")
+            nombre_producto = input("Ingrese el nombre del producto: ")
+        estilos.notification("ok","Nombre correcto")
+        
         precio_producto = input("Ingrese el precio del producto: ")
+        while not re.match(patron_positivos,precio_producto):
+            estilos.notification("warn","Precio incorrecto, debe ser un número positivo\n")
+            precio_producto = input("Ingrese el precio del producto: ")
+        estilos.notification("ok","Precio correcto")
+        
         stock = input("Ingrese cuántos productos se agregan al stock: ")
+        while not re.match(patron_positivos,stock):
+            estilos.notification("warn","Stock incorrecto, debe ser un número entero positivo\n")
+            stock = input("Ingrese cuántos productos se agregan al stock: ")
+        estilos.notification("ok","Stock ingresado correctamente")
 
         if nombre_producto == "" or precio_producto == "" or stock == "":
             estilos.notification("error","Error, datos incompletos o inválidos, reintente.")
@@ -99,9 +118,8 @@ def lista_precios_con_iva(productos):
 def registro_de_proveedores():
     
     estilos.imprimir_titulo("-- Registro de proveedores --", estilos.COLOR_BLUE)
-    patron_id_proveedor = "^[0-9]{4}$"
     id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
-    while not re.match(patron_id_proveedor,str(id_proveedor)):
+    while not re.match(patron_id,str(id_proveedor)):
         estilos.notification("warn","El ID debe tener 4 dígitos")
         id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
     estilos.notification("ok","ID correcto")
@@ -109,21 +127,18 @@ def registro_de_proveedores():
     if verificar_proveedores(id_proveedor,proveedores):
         estilos.notification("error","El ID ya existe")
     else:
-        patron_nombre = "^[A-Za-z\s]+$"
         nombre_proveedor = input("Ingrese el nombre del proveedor: ")
-        while not re.match(patron_nombre,nombre_proveedor):
+        while not re.match(patron_string,nombre_proveedor):
             estilos.notification("warn","Nombre incorrecto, solo letras y espacios permitidos\n")
             nombre_proveedor = input("Ingrese el nombre del proveedor: ")
         estilos.notification("ok","Nombre correcto")
         
-        patron_telefono = "^[0-9]{8}$"
         telefono_proveedor = input("Ingrese número de teléfono: ")
         while not re.match(patron_telefono,telefono_proveedor):
             estilos.notification("warn","Teléfono incorrecto, debe tener 8 dígitos\n")
             telefono_proveedor = input("Ingrese número de teléfono: ")
         estilos.notification("ok","Teléfono correcto")
         
-        patron_correo = ".*@.*"
         correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
         while not re.match(patron_correo,correo_electronico_proveedor):
             estilos.notification("warn","Mail Incorrecto, debe tener mínimo un @")
