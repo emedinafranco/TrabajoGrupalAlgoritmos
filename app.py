@@ -10,7 +10,7 @@ def guardar_datos():
     with open ("productos.json", "w") as arch_prod:
         json.dump(productos, arch_prod, indent=4)
     with open ("proveedores.json", "w") as arch_prov:
-        json.dump(proveedores, arch_proov, indent=4)  
+        json.dump(proveedores, arch_prov, indent=4)  
 
 def cargar_datos():
     global productos, proveedores
