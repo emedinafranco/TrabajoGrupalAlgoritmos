@@ -40,7 +40,6 @@ def agregar_productos():
                 productos.append(datos_producto)
                 estilos.notification("ok","El producto fue agregado con éxito.")
 
-
 def verificar_productos(id_productos,productos):
     for id in productos:
         if id["ID Producto"] == id_productos:
@@ -104,22 +103,32 @@ def registro_de_proveedores():
     id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
     while not re.match(patron_id_proveedor,str(id_proveedor)):
         estilos.notification("warn","El ID debe tener 4 dígitos")
-        id_proveedor = int(input("Ingrese un número de identificación para el producto: "))
-    
+        id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
     estilos.notification("ok","ID correcto")
+    
     if verificar_proveedores(id_proveedor,proveedores):
         estilos.notification("error","El ID ya existe")
     else:
+        patron_nombre = "^[A-Za-z\s]+$"
         nombre_proveedor = input("Ingrese el nombre del proveedor: ")
+        while not re.match(patron_nombre,nombre_proveedor):
+            estilos.notification("warn","Nombre incorrecto, solo letras y espacios permitidos\n")
+            nombre_proveedor = input("Ingrese el nombre del proveedor: ")
+        estilos.notification("ok","Nombre correcto")
+        
         patron_telefono = "^[0-9]{8}$"
         telefono_proveedor = input("Ingrese número de teléfono: ")
-        patron = ".*@.*"
-        correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
-        while not re.match(patron,correo_electronico_proveedor):
-            print("Mail Incorrecto, debe tener mínimo un @")
-            correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
+        while not re.match(patron_telefono,telefono_proveedor):
+            estilos.notification("warn","Teléfono incorrecto, debe tener 8 dígitos\n")
+            telefono_proveedor = input("Ingrese número de teléfono: ")
+        estilos.notification("ok","Teléfono correcto")
         
-        print("Mail correcto")
+        patron_correo = ".*@.*"
+        correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
+        while not re.match(patron_correo,correo_electronico_proveedor):
+            estilos.notification("warn","Mail Incorrecto, debe tener mínimo un @")
+            correo_electronico_proveedor = input("Ingrese el email del proveedor: ")
+        estilos.notification("ok","Mail correcto")
 
         if nombre_proveedor == "" or telefono_proveedor == "" or correo_electronico_proveedor == "":
             estilos.notification("error","Datos incompletos, reingrese.")
