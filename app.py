@@ -175,6 +175,7 @@ def listado_de_proveedores():
 
 def buscar_proveedor(nombre):
     return list(filter(lambda p: p["Nombre"].lower() == nombre.lower(), proveedores))
+
 def estadisticas_stock():
     if len (productos)== 0:
         print("No se ingresaron productos")
@@ -223,6 +224,14 @@ def limpiar_pantalla():
     
 def esperar_enter():
     input("\nPresione Enter para continuar...")
+    
+def listado_de_productos_iva():
+    if len(productos) == 0:
+        print("No hay productos ingresados.")
+    else:
+        precios_iva = lista_precios_con_iva(productos)
+        for nombre, precio in precios_iva:
+            print(f"{nombre} - Precio con IVA: ${precio}")
 
 def menu():
     while True:
@@ -243,12 +252,7 @@ def menu():
             elif opcion == 5:
                 modificar_producto()
             elif opcion == 6:
-                if len(productos) == 0:
-                    print("No hay productos ingresados.")
-                else:
-                    precios_iva = lista_precios_con_iva(productos)
-                    for nombre, precio in precios_iva:
-                        print(f"{nombre} - Precio con IVA: ${precio}")
+                listado_de_productos_iva()
             elif opcion == 7:
                 if len(proveedores) == 0:
                     print("No se ingresaron proveedores.")
