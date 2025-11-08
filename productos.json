@@ -1,0 +1,20 @@
+[
+    {
+        "ID Producto": 1963,
+        "Nombre": "Coca Cola",
+        "Precio": 2599.0,
+        "Stock": 36
+    },
+    {
+        "ID Producto": 2548,
+        "Nombre": "Aceite Natura",
+        "Precio": 5999.0,
+        "Stock": 22
+    },
+    {
+        "ID Producto": 1256,
+        "Nombre": "Arroz",
+        "Precio": 10111.99,
+        "Stock": 25
+    }
+]
