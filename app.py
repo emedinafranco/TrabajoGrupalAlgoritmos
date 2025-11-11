@@ -7,8 +7,8 @@ productos = []
 proveedores = []
 
 """Definición de patrones de validación usando expresiones regulares."""
-patron_string = "^[A-Za-z\s]+$"
-patron_positivos = "^[1-9][0-9]*(\.[0-9]+)?$"
+patron_string = "^[A-Za-z]+$"
+patron_positivos = "^[1-9][0-9]*([0-9]+)?$"
 patron_id = "^[0-9]{4}$"
 patron_telefono = "^[0-9]{8}$"
 patron_correo = ".*@.*"
