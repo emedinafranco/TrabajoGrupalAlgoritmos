@@ -65,8 +65,42 @@ def mostrar_menu_principal():
     print(f"║  {COLOR_WHITE}6{COLOR_GREEN} → Listado de precios con iva                          ║")
     print(f"║  {COLOR_WHITE}7{COLOR_GREEN} → Busqueda de proveedores                             ║")
     print(f"║  {COLOR_WHITE}8{COLOR_GREEN} → Estadisticas del stock                              ║")
-    print(f"║  {COLOR_WHITE}0{COLOR_GREEN} → Salir                                               ║")
     print("║                                                          ║")
-    print("╚" + "═" * 58 + "╝")
-    print(COLOR_WHITE)
+    print(f"║  {COLOR_RED}[0]{COLOR_RED} → Salir                                           {COLOR_GREEN}  ║")
+    print("║                                                          ║")
+    print(f"{COLOR_GREEN}╚" + "═" * 58 + "╝")
 
+def comfirma_accion(messagge):
+    """Imprime un mensaje de confirmación en color verde.
+
+    Parámetros:
+    - messagge (str): El mensaje que se mostrará como confirmación.
+    """
+    respuesta = input(f"{COLOR_GREEN}{messagge}{COLOR_RESET} (s/n): ").lower()
+    return respuesta == 's' or respuesta == 'si'
+
+def mostrar_estadisticas(total, promedio, producto_caro, precio_caro, producto_barato, precio_barato):
+    """Muestra las estadísticas del stock en un formato visual.
+    
+    Parámetros:
+    - total (float): Valor total del stock
+    - promedio (float): Precio promedio
+    - producto_caro (str): Nombre del producto más caro
+    - precio_caro (float): Precio del producto más caro
+    - producto_barato (str): Nombre del producto más barato
+    - precio_barato (float): Precio del producto más barato
+    """
+    print(f"\n{COLOR_GREEN}╔═══════════════════════════════════════════════════════════╗")
+    print(f"║{COLOR_BOLD}{COLOR_WHITE}              ESTADÍSTICAS DEL STOCK {COLOR_RESET}{COLOR_GREEN}                      ║")
+    print("╠═══════════════════════════════════════════════════════════╣")
+    print("║                                                           ║")
+    print(f"║  {COLOR_WHITE}💰 Valor total del stock:{COLOR_GREEN} ${total:,.2f}                    {COLOR_GREEN}║")
+    print(f"║  {COLOR_WHITE}📈 Precio promedio:{COLOR_GREEN} ${promedio:,.2f}                          {COLOR_GREEN}║")
+    print("║                                                           ║")
+    print(f"║  {COLOR_WHITE}🔺 Producto más caro:{COLOR_RESET}                                    ║")
+    print(f"║     {COLOR_YELLOW}{producto_caro[:30]}{COLOR_GREEN} - {COLOR_GREEN}${precio_caro:,.2f}                                    {COLOR_GREEN}║")
+    print("║                                                           ║")
+    print(f"║  {COLOR_WHITE}🔻 Producto más barato:{COLOR_RESET}                                  ║")
+    print(f"║     {COLOR_YELLOW}{producto_barato[:30]}{COLOR_GREEN} - {COLOR_GREEN}${precio_barato:,.2f}                                 {COLOR_GREEN}║")
+    print("║                                                           ║")
+    print(f"╚═══════════════════════════════════════════════════════════╝{COLOR_RESET}\n")

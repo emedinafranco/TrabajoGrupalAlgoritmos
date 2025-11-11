@@ -228,11 +228,8 @@ def estadisticas_stock():
 
         promedio = total / len(productos)
 
-        print("\nEstadisticas del stock")
-        print(f"Valor total del stock: ${total:.2f}")
-        print(f"Precio promedio: ${promedio:.2f}")
-        print(f"Producto mas caro: {nombre_caro} (${max_precio:.2f})")
-        print(f"Producto mas barato: {nombre_barato} (${min_precio:.2f})")
+        estilos.mostrar_estadisticas(total, promedio, nombre_caro, max_precio, nombre_barato, min_precio)
+
 
 def filtrar_stock_bajo():
     if len(productos) == 0:
@@ -290,9 +287,10 @@ def menu():
             elif opcion == 9:
                 filtrar_stock_bajo()
             elif opcion == 0:
-                guardar_datos()
-                print("Saliendo del sistema...")
-                break
+                if estilos.comfirma_accion("¿Está seguro que desea salir?"):
+                    guardar_datos()
+                    print("Saliendo del sistema...")
+                    break
             else:
                 estilos.notification("error", "Opción inválida, intente nuevamente...")
         except ValueError:

@@ -16,5 +16,11 @@
         "Nombre": "Arroz",
         "Precio": 10111.99,
         "Stock": 25
+    },
+    {
+        "ID Producto": 2145,
+        "Nombre": "Shampoo",
+        "Precio": 6859.0,
+        "Stock": 45
     }
 ]
