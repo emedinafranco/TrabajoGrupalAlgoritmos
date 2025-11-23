@@ -14,12 +14,44 @@ patron_telefono = "^[0-9]{8}$"
 patron_correo = ".*@.*"
 
 def guardar_datos():
-    with open("productos.json", "w") as arch_prod:
-        json.dump(productos, arch_prod, indent=4)
-    with open("proveedores.json", "w") as arch_prov:
-        json.dump(proveedores, arch_prov, indent=4)
+    """
+    Guarda en archivos JSON los datos actuales de productos y proveedores.
+
+    Archivos generados:
+        - productos.json
+        - proveedores.json
+
+    Si ocurre un FileNotFoundError (por ejemplo, la carpeta no existe),
+    la función simplemente lo ignora.
+
+    Returns:
+        None
+    """
+    try:
+       with open("productos.json", "w") as arch_prod:
+          json.dump(productos, arch_prod, indent=4)
+    except Exception as e:
+        print("Error al generar el archivo de productos."+ e)  
+    try:    
+        with open("proveedores.json", "w") as arch_prov:
+          json.dump(proveedores, arch_prov, indent=4)
+    except Exception as e:
+        print("Error al generar el archivo de proveedores"+ e)      
+    
 
 def cargar_datos():
+    """
+    Carga desde archivos JSON los datos almacenados de productos y proveedores.
+
+    Si los archivos no existen, inicializa las listas como listas vacías para evitar errores.
+
+    Globals:
+        productos (list): Se actualiza con los datos cargados.
+        proveedores (list): Se actualiza con los datos cargados.
+
+    Returns:
+        None
+    """
     global productos, proveedores
     try:
         with open("productos.json", "r") as arch_prod:
@@ -33,18 +65,53 @@ def cargar_datos():
         proveedores = []
 
 def verificar_productos(id_productos, productos):
+    """
+    Verifica si un ID de producto ya existe en la lista de productos.
+
+    Args:
+        id_productos (int): ID a buscar.
+        productos (list): Lista de productos cargados.
+
+    Returns:
+        True si el ID existe, False en caso contrario.
+    """
     for id in productos:
         if id["ID Producto"] == id_productos:
             return True
     return False
 
 def verificar_proveedores(id_proveedor, proveedores):
+    """
+    Verifica si un ID de proveedor ya existe en la lista de proveedores.
+
+    Args:
+        id_proveedor (int): ID a buscar.
+        proveedores (list): Lista de proveedores registrados.
+
+    Returns:
+        bool: True si el ID existe, False si no existe.
+    """
     for prov in proveedores:
         if prov["ID Proveedor"] == id_proveedor:
             return True
     return False
 
 def agregar_productos():
+    """
+    Permite registrar un nuevo producto solicitando datos al usuario.
+    
+    Validaciones:
+        - ID de 4 digitos.
+        - Nombre solo con letras y espacios.
+        - Precio positivo.
+        - Stock positivo.
+
+    Si todos los datos son válidos, agrega el producto a la lista global
+    y actualiza el archivo JSON.
+
+    Returns:
+        None
+    """    
     estilos.imprimir_titulo("Registro de producto", estilos.COLOR_BLUE)
     id_producto = int(input("Ingrese un número de identificación para el producto: "))
     while not re.match(patron_id, str(id_producto)):
@@ -93,6 +160,21 @@ def agregar_productos():
                 guardar_datos()
 
 def modificar_producto():
+    """
+    Permite modificar el precio o el stock de un producto existente.
+
+    El usuario ingresa el ID del producto y elige que campo modificar.
+    Si el producto no se encuentra, muestra un mensaje de advertencia.
+
+    Cambios posibles:
+        1. Precio
+        2. Stock
+
+    Luego de modificar el producto, guarda los cambios en el JSON.
+
+    Returns:
+        None
+    """    
     id_productos = int(input("Ingrese el ID del producto a modificar: "))
     encontrado = False
 
@@ -128,6 +210,15 @@ def modificar_producto():
         estilos.notification("warn", "No se encontró el producto deseado")
 
 def listado_de_productos():
+    """
+    Muestra por pantalla todos los productos registrados, con su ID,
+    nombre, precio y stock.
+
+    Si no hay productos, informa al usuario.
+
+    Returns:
+        None
+    """
     estilos.imprimir_titulo("Lista de productos", estilos.COLOR_BLUE)
     if len(productos) == 0:
         estilos.notification("warn", "No hay productos ingresados")
@@ -138,9 +229,26 @@ def listado_de_productos():
             i += 1
 
 def lista_precios_con_iva(productos):
+    """
+    Calcula el precio de cada producto con IVA (21%).
+
+    Args:
+        productos (list): Lista de productos.
+
+    Returns:
+        list: Lista de tuplas (nombre, precio_con_iva).
+    """    
     return list(map(lambda p: (p["Nombre"], p["Precio"] * 1.21), productos))
 
 def listado_de_productos_iva():
+    """
+    Muestra la lista de productos con sus precios ya calculados con IVA.
+
+    Si no hay productos, se muestra un aviso.
+
+    Returns:
+        None
+    """    
     estilos.imprimir_titulo("Listado de precios con IVA", estilos.COLOR_BLUE)
     if len(productos) == 0:
         estilos.notification("warn", "No hay productos ingresados")
@@ -150,6 +258,21 @@ def listado_de_productos_iva():
             print(f"{nombre} - Precio con IVA: ${precio:.2f}")
 
 def registro_de_proveedores():
+    """
+    Registra un nuevo proveedor solicitando datos al usuario.
+
+    Validaciones:
+        - ID de 4 dígitos unico.
+        - Nombre solo letras y espacios.
+        - Teléfono de 8 digitos.
+        - Email que contenga '@'.
+
+    Si los datos son validos, se guarda el proveedor en la lista global
+    y se actualizan los archivos JSON.
+
+    Returns:
+        None
+    """    
     estilos.imprimir_titulo("-- Registro de proveedores --", estilos.COLOR_BLUE)
     
     id_proveedor = int(input("Ingrese un número de identificación para el proveedor: "))
@@ -193,6 +316,17 @@ def registro_de_proveedores():
             guardar_datos()
 
 def listado_de_proveedores():
+    """
+    Muestra en pantalla todos los proveedores registrados.
+
+    Incluye:
+        - Nombre
+        - Teléfono
+        - Correo electrónico
+
+    Returns:
+        None
+    """    
     estilos.imprimir_titulo("-- Lista de proveedores --", estilos.COLOR_BLUE)
     if len(proveedores) == 0:
         estilos.notification("warn", "No hay proveedores registrados")
@@ -203,9 +337,31 @@ def listado_de_proveedores():
             i += 1
 
 def buscar_proveedor(nombre):
+    """
+    Busca proveedores cuyo nombre coincida con el ingresado
+    (no distingue mayúsculas/minúsculas).
+
+    Args:
+        nombre (str): Nombre a buscar.
+
+    Returns:
+        Lista de proveedores coincidentes.
+    """    
     return list(filter(lambda p: p["Nombre"].lower() == nombre.lower(), proveedores))
 
 def estadisticas_stock():
+    """
+    Calcula y muestra estadísticas del stock actual.
+
+    Incluye:
+        - Valor total del stock (precio * cantidad)
+        - Precio promedio
+        - Producto más caro
+        - Producto más barato
+
+    Returns:
+        None
+    """    
     if len(productos) == 0:
         estilos.notification("warn", "No se ingresaron productos")
     else:
@@ -235,6 +391,14 @@ def estadisticas_stock():
         print(f"Producto mas barato: {nombre_barato} (${min_precio:.2f})")
 
 def filtrar_stock_bajo():
+    """
+    Muestra todos los productos cuyo stock es inferior a 5 unidades.
+
+    Si no hay productos con stock bajo, informa al usuario.
+
+    Returns:
+        None
+    """    
     if len(productos) == 0:
         estilos.notification("warn", "No hay productos cargados.")
     else:
@@ -249,12 +413,48 @@ def filtrar_stock_bajo():
             estilos.notification("info", "No hay productos con stock bajo.")
 
 def limpiar_pantalla():
+    """
+    Limpia la pantalla de la consola dependiendo del sistema operativo.
+
+    - Windows → 'cls'
+    - Linux/Mac → 'clear'
+
+    Returns:
+        None
+    """    
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def esperar_enter():
+    """
+    Pausa la ejecución del programa hasta que el usuario presione Enter.
+
+    Returns:
+        None
+    """    
     input("\nPresione Enter para continuar...")
 
 def menu():
+    """
+    Muestra y controla el menú principal del sistema.
+
+    Acciones disponibles:
+        1. Agregar productos
+        2. Listar productos
+        3. Registrar proveedores
+        4. Listar proveedores
+        5. Modificar producto
+        6. Listado de precios con IVA
+        7. Buscar proveedor por nombre
+        8. Estadísticas del stock
+        9. Filtrar stock bajo
+        0. Guardar y salir
+
+    Controla errores de entrada y mantiene el programa en ejecución
+    hasta que el usuario elija salir.
+
+    Returns:
+        None
+    """        
     cargar_datos()
     
     while True:
