@@ -15,6 +15,7 @@
         "ID Producto": 1256,
         "Nombre": "Arroz",
         "Precio": 10111.99,
+<<<<<<< HEAD
         "Stock": 25
     },
     {
@@ -22,5 +23,8 @@
         "Nombre": "djfkisn",
         "Precio": 3400.0,
         "Stock": 23
+=======
+        "Stock": 3
+>>>>>>> 70910b4a92c7eeb6df822497ab1ba1698724fc3a
     }
 ]
