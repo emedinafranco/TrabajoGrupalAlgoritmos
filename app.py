@@ -522,7 +522,7 @@ def menu():
                 valor = float(input("Mostrar productos con precio mayor a: "))
                 if valor <= 0:
                     print("Solo se permiten valores positivos")
-                    valor = int(input("Mostrar productos con precio mayor a: "))
+                    valor = float(input("Mostrar productos con precio mayor a: "))
                 resultado = productos_mayores_a(productos, valor)
 
                 if resultado:
