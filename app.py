@@ -412,6 +412,23 @@ def filtrar_stock_bajo():
         if not hay_bajos:
             estilos.notification("info", "No hay productos con stock bajo.")
 
+def productos_mayores_a(productos, precio_minimo):
+    """
+    Devuelve una lista con los nombres de los productos cuyo precio
+    es mayor al precio indicado. Utiliza listas por comprension.
+
+    Parametros:
+        productos (lista): Lista de diccionarios con información de productos.
+        precio_minimo (float): Valor umbral para filtrar productos.
+
+    Returns:
+        lista: Lista de nombres de productos cuyo precio es mayor al mínimo.
+
+    Ejemplo:
+        productos_mayores_a(productos, 1000)
+    """
+    return [p["Nombre"] for p in productos if p["Precio"] > precio_minimo]
+
 def limpiar_pantalla():
     """
     Limpia la pantalla de la consola dependiendo del sistema operativo.
@@ -489,6 +506,17 @@ def menu():
                 estadisticas_stock()
             elif opcion == 9:
                 filtrar_stock_bajo()
+            elif opcion == 10:
+                valor = float(input("Mostrar productos con precio mayor a: "))
+                resultado = productos_mayores_a(productos, valor)
+
+                if resultado:
+                    print("Productos encontrados:")
+                    for nombre in resultado:
+                       print(f"- {nombre}")
+                else:
+                    print("No hay productos con precio superior a ese valor.")
+    
             elif opcion == 0:
                 guardar_datos()
                 print("Saliendo del sistema...")
