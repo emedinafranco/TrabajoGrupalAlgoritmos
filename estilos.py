@@ -65,8 +65,9 @@ def mostrar_menu_principal():
     print(f"║  {COLOR_WHITE}6{COLOR_GREEN} → Listado de precios con iva                          ║")
     print(f"║  {COLOR_WHITE}7{COLOR_GREEN} → Busqueda de proveedores                             ║")
     print(f"║  {COLOR_WHITE}8{COLOR_GREEN} → Estadisticas del stock                              ║")
-    print("║                                                          ║")
-    print(f"║  {COLOR_RED}[0]{COLOR_RED} → Salir                                           {COLOR_GREEN}  ║")
+    print(f"║  {COLOR_WHITE}9{COLOR_GREEN} → Filtrar stock bajo                                  ║")
+    print(f"║  {COLOR_WHITE}10{COLOR_GREEN}→ Lista de productos caros                            ║")    
+    print(f"║  {COLOR_WHITE}0{COLOR_GREEN} → Salir                                               ║")
     print("║                                                          ║")
     print(f"{COLOR_GREEN}╚" + "═" * 58 + "╝")
 
