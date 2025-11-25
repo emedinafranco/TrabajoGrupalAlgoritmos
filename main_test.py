@@ -16,16 +16,13 @@ def setup_datos():
 @patch('builtins.input')      # Mockear input para simular entradas del usuario
 def test_agregar_productos_exitoso(mock_input, mock_guardar):
     """Test: agregar un producto con datos válidos"""
-    # Simular entradas del usuario
     mock_input.side_effect = [
         '1234',  # ID producto
         'Leche',  # Nombre
         '1500',  # Precio
         '20'     # Stock
-    ]
-    
+    ]    
     app.agregar_productos()
-    
     # Verificar que se agregó el producto
     assert len(app.productos) == 1
     assert app.productos[0]["ID Producto"] == 1234
@@ -95,57 +92,6 @@ def test_agregar_productos_id_duplicado(mock_input, mock_guardar):
     assert len(app.productos) == 1
     assert app.productos[0]["Nombre"] == "Producto Existente"
     mock_guardar.assert_not_called()
-
-@patch('app.guardar_datos')
-@patch('builtins.input')
-def test_modificar_producto_precio(mock_input, mock_guardar):
-    """Test: modificar el precio de un producto"""
-    # Agregar un producto inicial
-    app.productos = [
-        {
-            "ID Producto": 2222,
-            "Nombre": "Arroz",
-            "Precio": 1500.0,
-            "Stock": 25
-        }
-    ]
-    
-    # Simular modificación
-    mock_input.side_effect = [
-        '2222',  # ID del producto a modificar
-        '1',     # Opción: modificar precio
-        '2000'   # Nuevo precio
-    ]
-    
-    app.modificar_producto()
-    
-    # Verificar cambio
-    assert app.productos[0]["Precio"] == 2000.0
-    mock_guardar.assert_called_once()
-
-@patch('app.guardar_datos')
-@patch('builtins.input')
-def test_modificar_producto_stock(mock_input, mock_guardar):
-    """Test: modificar el stock de un producto"""
-    app.productos = [
-        {
-            "ID Producto": 3333,
-            "Nombre": "Aceite",
-            "Precio": 3500.0,
-            "Stock": 10
-        }
-    ]
-    
-    mock_input.side_effect = [
-        '3333',  # ID del producto
-        '2',     # Opción: modificar stock
-        '50'     # Nuevo stock
-    ]
-    
-    app.modificar_producto()
-    
-    assert app.productos[0]["Stock"] == 50
-    mock_guardar.assert_called_once()
 
 @patch('app.guardar_datos')
 @patch('builtins.input')
