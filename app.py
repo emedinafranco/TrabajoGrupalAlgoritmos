@@ -535,6 +535,6 @@ def menu():
         esperar_enter()
         limpiar_pantalla()
 
-#Ejecutar el rpograma
+#Ejecutar el de esta manera para evitar correr el menu al importar en los tests
 if __name__ == "__main__":
     menu()

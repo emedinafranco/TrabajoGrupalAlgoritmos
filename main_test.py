@@ -12,7 +12,6 @@ def setup_datos():
     app.productos = []
     app.proveedores = []
 
-# ⚠️ IMPORTANTE: Necesitas los decoradores @patch para mockear input y guardar_datos
 @patch('app.guardar_datos')  # Mockear guardar_datos para que no escriba archivos
 @patch('builtins.input')      # Mockear input para simular entradas del usuario
 def test_agregar_productos_exitoso(mock_input, mock_guardar):
