@@ -519,13 +519,16 @@ def menu():
             elif opcion == 9:
                 filtrar_stock_bajo()
             elif opcion == 10:
-                valor = float(input("Mostrar productos con precio mayor a: "))
+                valor = int(input("Mostrar productos con precio mayor a: "))
+                if valor <= 0:
+                    print("Solo se permiten valores positivos")
+                    valor = int(input("Mostrar productos con precio mayor a: "))
                 resultado = productos_mayores_a(productos, valor)
 
                 if resultado:
                     print("Productos encontrados:")
                     for nombre in resultado:
-                       print(f"- {nombre}")
+                        print(f"- {nombre}")
                 else:
                     print("No hay productos con precio superior a ese valor.")
     
