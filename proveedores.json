@@ -1,14 +1,14 @@
 [
     {
-        "ID Proveedor": 3456,
+        "ID Proveedor": 1020,
         "Nombre": "la serenisima",
-        "Tel\u00e9fono": "23454444",
-        "Correo electr\u00f3nico": "laserenisima@gmail.com"
+        "Tel\u00e9fono": "15236589",
+        "Correo electr\u00f3nico": "productos@laserenisima.com"
     },
     {
-        "ID Proveedor": 1234,
-        "Nombre": "goooo",
-        "Tel\u00e9fono": "34452842",
-        "Correo electr\u00f3nico": "djfodj@gmail.com"
+        "ID Proveedor": 2541,
+        "Nombre": "fargo",
+        "Tel\u00e9fono": "08002458",
+        "Correo electr\u00f3nico": "proveedores@fargo.ar"
     }
 ]

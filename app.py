@@ -8,7 +8,7 @@ proveedores = []
 
 """Definición de patrones de validación usando expresiones regulares."""
 patron_string = "^[A-Za-z ]+$"
-patron_positivos = "^[1-9][0-9]*([0-9]+)?$"
+patron_positivos = "^[1-9]+(\.[0-9]{1,2})?$"
 patron_id = "^[0-9]{4}$"
 patron_telefono = "^[0-9]{8}$"
 patron_correo = ".*@.*"
@@ -58,10 +58,16 @@ def cargar_datos():
             productos = json.load(arch_prod)
     except FileNotFoundError:
         productos = []
+    except json.JSONDecodeError:
+        estilos.notification("error", "Archivo productos.json corrupto. Iniciando con datos vacíos.")
+        productos = []
     try:
         with open("proveedores.json", "r") as arch_prov:
             proveedores = json.load(arch_prov)
     except FileNotFoundError:
+        proveedores = []
+    except json.JSONDecodeError:
+        estilos.notification("error", "Archivo proveedores.json corrupto. Iniciando con datos vacíos.")
         proveedores = []
 
 def verificar_productos(id_productos, productos):

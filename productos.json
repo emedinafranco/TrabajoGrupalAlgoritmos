@@ -1,27 +1,26 @@
 [
     {
-        "ID Producto": 1963,
-        "Nombre": "Coca Cola",
-        "Precio": 2599.0,
-        "Stock": 36
+        "ID Producto": 1230,
+        "Nombre": "coca cola",
+        "Precio": 1599.99,
+        "Stock": 10
     },
     {
-        "ID Producto": 2548,
-        "Nombre": "Aceite Natura",
-        "Precio": 5999.0,
-        "Stock": 22
+        "ID Producto": 2451,
+        "Nombre": "doritos",
+        "Precio": 5800.99,
+        "Stock": 98
     },
     {
-        "ID Producto": 1256,
-        "Nombre": "Arroz",
-        "Precio": 10111.99,
-<<<<<<< HEAD
-        "Stock": 25
+        "ID Producto": 2140,
+        "Nombre": "fanta",
+        "Precio": 2500.0,
+        "Stock": 5
     },
     {
-        "ID Producto": 2145,
-        "Nombre": "Shampoo",
-        "Precio": 6859.0,
-        "Stock": 45
+        "ID Producto": 2541,
+        "Nombre": "cheetos",
+        "Precio": 4599.99,
+        "Stock": 65
     }
 ]
