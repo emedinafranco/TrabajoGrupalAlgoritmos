@@ -199,12 +199,21 @@ def modificar_producto():
             opcion = int(input("Ingrese opción: "))
             
             if opcion == 1:
-                nuevo_precio = float(input("Ingrese el precio nuevo: "))
+                nuevo_precio = input("Ingrese el precio nuevo: ")
+                while not re.match(patron_positivos, nuevo_precio):
+                    estilos.notification("warn", "Precio incorrecto, debe ser un número positivo\n")
+                    nuevo_precio = input("Ingrese el precio del producto: ")
+                estilos.notification("ok", "Precio correcto")
+
                 producto["Precio"] = nuevo_precio
                 estilos.notification("ok", "Precio Actualizado")
                 guardar_datos()
             elif opcion == 2:
-                nuevo_stock = int(input("Ingrese el nuevo stock: "))
+                nuevo_stock = input("Ingrese el nuevo stock: ")
+                while not re.match(patron_positivos, nuevo_stock):
+                    estilos.notification("warn", "Stock incorrecto, debe ser un número entero positivo\n")
+                    nuevo_stock = input("Ingrese cuántos productos se agregan al stock: ")
+                estilos.notification("ok", "Stock ingresado correctamente")
                 producto["Stock"] = nuevo_stock
                 estilos.notification("ok", "Stock Actualizado")
                 guardar_datos()
