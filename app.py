@@ -302,4 +302,5 @@ def menu():
         limpiar_pantalla()
 
 #Ejecutar el rpograma
-menu()
+if __name__ == "__main__":
+    menu()
